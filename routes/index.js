@@ -5,12 +5,23 @@ router.get('/', (req, res, next) => {
     res.send('Hello! :)');
 });
 
-router.get('/json', (req, res, next) => {
+router.get('/request/:path', (req, res, next) => {
+    const path = req.params.path;
+
     const data = {
-        key: 'Hello! :)',
+        key: path,
     }
 
     res.json(data);
+});
+
+router.get('/query', (req, res) => {
+    const user = {
+        name: req.query.name,
+        username: req.query.user
+    }
+
+    res.render('profile', user);
 });
 
 router.get('/home', (req, res, next) => {
