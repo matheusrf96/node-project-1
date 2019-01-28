@@ -1,6 +1,8 @@
+const http = require('http');
 const express = require('express');
 const path = require('path');
 const hoganMiddleware = require('hogan-middleware');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -10,8 +12,8 @@ app.engine('mustache', hoganMiddleware.__express);
 
 app.use(express.static(path.join(__dirname, 'public/assets')));
 
-const router = require('./routes/index');
+const router = require('./src/routes/index');
 
 app.use('/', router);
 
-app.listen(3000);
+http.createServer(app).listen(3000);
