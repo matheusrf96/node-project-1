@@ -6,21 +6,17 @@ const BookSchema = new mongoose.Schema({
         required: true
     },
     author: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
+    },
+    category: {
+        type: String,
+        requried: true
     },
     published: {
         type: Date,
         default: Date.now
     },
-    keywords: Array,
-    detail: {
-        modelNumber: Number,
-        hardcover: Boolean,
-        reviews: Number,
-        rank: Number
-    }
 });
 
 module.exports = mongoose.model('Book', BookSchema);
