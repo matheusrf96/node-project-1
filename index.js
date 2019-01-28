@@ -3,9 +3,13 @@ const express = require('express');
 const path = require('path');
 const hoganMiddleware = require('hogan-middleware');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 mongoose.connect(
     'mongodb://localhost:27017/bookstore',
@@ -18,10 +22,6 @@ app.engine('mustache', hoganMiddleware.__express);
 
 app.use(express.static(path.join(__dirname, 'public/assets')));
 
-const router = require('./src/routes/index');
-
-const Book = require('./src/models/Book');
-
-app.use('/', router);
+app.use('/', require('./src/routes/index'));
 
 http.createServer(app).listen(3000);
