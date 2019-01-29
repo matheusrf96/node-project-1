@@ -55,6 +55,28 @@ router.post('/books', (req, res, next) => {
     });
 });
 
+router.put('/books/:id', (req, res, next) => {
+    console.log('Updating book');
+
+    Book.findOneAndUpdate({
+        _id: req.params.id
+    },
+    { $set: {
+        title: req.body.title,
+        author: req.body.author,
+        category: req.body.category
+    }},
+    { new: true },
+    (err, newBook) => {
+        if(err){
+            console.log('error updating');
+        }
+        else{
+            res.send(newBook);
+        }
+    });
+});
+
 router.get('/home', (req, res, next) => {
     res.render('home', null);
 });
