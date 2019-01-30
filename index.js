@@ -19,6 +19,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public/assets')));
+app.use('/materialize', express.static(__dirname + '/node_modules/materialize-css/dist/'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'))
 
 app.use('/', require('./src/routes/index'));
 
