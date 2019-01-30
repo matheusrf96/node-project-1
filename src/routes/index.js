@@ -1,84 +1,14 @@
 const express = require('express');
-
-const Book = require('../models/Book');
-
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    res.send('Hello! :)');
-});
+const Book = require('../models/Book');
+const BookController = require('../controllers/BookController');
 
-router.get('/books', (req, res, next) => {
-    console.log('getting all books');
-
-    Book.find().exec((err, results) => {
-        if(err){
-            res.send('error');
-        }
-        else{
-            res.json(results);
-        }
-    });
-});
-
-router.get('/books/:id', (req, res, next) => {
-    console.log('getting one book');
-
-    Book.findOne({
-        _id: req.params.id,
-    }).exec((err, result) => {
-        if(err){
-            res.send('The book wasn\'t found');
-        }
-        else{
-            res.json(result);
-        }
-    });
-});
-
-router.post('/books', (req, res, next) => {
-    console.log('Inserting book');
-
-    let newBook = new Book();
-
-    newBook.title = req.body.title;
-    newBook.author = req.body.author;
-    newBook.category = req.body.category;
-
-    newBook.save((err, result) => {
-        if(err){
-            res.send('error saving book');
-        }
-        else{
-            res.send(result);
-        }
-    });
-});
-
-router.put('/books/:id', (req, res, next) => {
-    console.log('Updating book');
-
-    Book.findOneAndUpdate({
-        _id: req.params.id
-    },
-    { $set: {
-        title: req.body.title,
-        author: req.body.author,
-        category: req.body.category
-    }},
-    { new: true },
-    (err, newBook) => {
-        if(err){
-            console.log('error updating');
-        }
-        else{
-            res.send(newBook);
-        }
-    });
-});
-
-router.get('/home', (req, res, next) => {
-    res.render('pages/home', { title: 'Matheus'});
-});
+router.get('/', BookController.index);
+router.get('/books', BookController.listAll);
+router.get('/books/:id', BookController.listOne);
+router.post('/books', BookController.addBook);
+router.put('/books/:id', BookController.updateBook);
+router.get('/home', BookController.home);
 
 module.exports = router;
