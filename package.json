@@ -12,9 +12,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "hjs": "0.0.6",
-    "hogan-middleware": "^0.2.2",
     "mongoose": "^5.4.7"
   },
   "devDependencies": {

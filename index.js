@@ -1,7 +1,6 @@
 const http = require('http');
 const express = require('express');
 const path = require('path');
-const hoganMiddleware = require('hogan-middleware');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -17,8 +16,7 @@ mongoose.connect(
 );
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'mustache');
-app.engine('mustache', hoganMiddleware.__express);
+app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public/assets')));
 

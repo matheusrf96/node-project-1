@@ -78,7 +78,7 @@ router.put('/books/:id', (req, res, next) => {
 });
 
 router.get('/home', (req, res, next) => {
-    res.render('home', null);
+    res.render('pages/home', { title: 'Matheus'});
 });
 
 module.exports = router;
