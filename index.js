@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const requireDir = require('require-dir');
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,6 +22,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public/assets')));
 app.use('/materialize', express.static(__dirname + '/node_modules/materialize-css/dist/'));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'))
+
+requireDir('./src/models');
 
 app.use('/', require('./src/routes/index'));
 
