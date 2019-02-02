@@ -1,0 +1,26 @@
+<% include ../includes/header %>
+
+<div class="row">
+    <% for(let i = 0; i < books.length; i++){ %>
+        <div class="col l4 m6 s12">
+            <div class="card horizontal">
+                <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h5><%= books[i].title %></h5>
+                        <h6><%= books[i].author %></h6>
+                        <p><%= dates[i] %></p>
+                        <p><%= books[i].category %></p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<% include ../includes/footer %>

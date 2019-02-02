@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 const Book = mongoose.model('Book');
 
+function dFormat(d){
+    return [d.getDate(), d.getMonth() + 1, d.getFullYear()].join('/') +
+            ' ' +
+            [d.getHours(), d.getMinutes()].join(':');
+}
+
 module.exports = {
     async index(req, res){
         return res.send('Hello! :)');
     },
 
+    // API
     async listAll(req, res){
         console.log('getting all books');
 
@@ -75,7 +82,26 @@ module.exports = {
         });
     },
 
+    // Pages
+    async listBooks(req, res){
+        Book.find().exec((err, results) => {
+            if(err){
+                return res.send('error');
+            }
+            else{
+                let arrDates = [];
+
+
+                for(let i = 0; i < results.length; i++){
+                    arrDates.push(dFormat(results[i].published));
+                }
+
+                return res.render('pages/books-list', { books: results, dates: arrDates });
+            }
+        });
+    },
+
     async home(req, res){
-        res.render('pages/home', { title: 'Matheus'});
+        return res.render('pages/home', { title: 'Matheus' });
     }
 };
