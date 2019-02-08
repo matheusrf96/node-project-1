@@ -8,10 +8,6 @@ function dFormat(d){
 }
 
 module.exports = {
-    async index(req, res){
-        return res.send('Hello! :)');
-    },
-
     // API
     async listAll(req, res){
         console.log('getting all books');
@@ -84,6 +80,8 @@ module.exports = {
 
     // Pages
     async listBooks(req, res){
+        path = req.path;
+
         Book.find().exec((err, results) => {
             if(err){
                 return res.send('error');
@@ -96,12 +94,14 @@ module.exports = {
                     arrDates.push(dFormat(results[i].published));
                 }
 
-                return res.render('pages/books-list', { books: results, dates: arrDates });
+                return res.render('pages/books-list', { books: results, dates: arrDates, path: path });
             }
         });
     },
 
     async home(req, res){
-        return res.render('pages/home', { title: 'Matheus' });
+        path = req.path;
+
+        return res.render('pages/home', { path: path });
     }
 };
