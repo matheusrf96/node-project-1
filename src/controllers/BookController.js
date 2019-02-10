@@ -89,12 +89,26 @@ module.exports = {
             else{
                 let arrDates = [];
 
-
                 for(let i = 0; i < results.length; i++){
                     arrDates.push(dFormat(results[i].published));
                 }
 
                 return res.render('pages/books-list', { books: results, dates: arrDates, path: path });
+            }
+        });
+    },
+
+    async showDetails(req, res){
+        path = req.path;
+
+        Book.findOne({
+            _id: req.params.id,
+        }).exec((err, result) => {
+            if(err){
+                return res.send('The book wasn\'t found');
+            }
+            else{
+                return res.render('pages/book-details', { book: result, date: dFormat(result.published), path: path });
             }
         });
     },

@@ -10,6 +10,7 @@ router.get('/api/books/:id', BookController.listOne);
 router.post('/api/books', BookController.addBook);
 router.put('/api/books/:id', BookController.updateBook);
 // Pages
-router.get('/books/list', BookController.listBooks);
+router.get('/books/show', BookController.listBooks);
+router.get('/books/show/:id', BookController.showDetails);
 
 module.exports = router;
